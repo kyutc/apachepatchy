@@ -30,7 +30,7 @@ The scripts are hardcoded to assume there is a user named `abronsius`, so be sur
 
 This vulnerability is trivial to exploit and results in directory traversal, local file inclusion, and remote code execution. This exploit takes advantage of a new form of URL normalisation added in this version which did not appropriately check against URL-encoded paths, which in this instance allows moving up from the cgi-bin directory and executing arbitrary code on the remote server. This line brings the directory up to `/` and then executes `/bin/sh` and passes `echo;ls;whoami;uname -a` to the opened shell.
 
-Directory traveral/local file inclusion:
+Remote code execution:
 ```sh
 curl --path-as-is "http://website1.cpsc4270.foul.dev/cgi-bin/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/bin/sh" -d "echo;ls;whoami;uname -a"
 ```
