@@ -1,0 +1,8 @@
+150c150
+< #LoadModule cgid_module modules/mod_cgid.so
+---
+> LoadModule cgid_module modules/mod_cgid.so
+210c210
+<     Require all denied
+---
+>     #Require all denied
