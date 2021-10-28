@@ -14,4 +14,4 @@ make install
 
 # Make changes to apache config to enable mod_cgi and allow the web server to
 # serve files
-patch ~/apache2/conf/httpd.conf /home/abronsius/dbsecscripts/httpd.conf.patch
+patch ~/apache2/conf/httpd.conf httpd.conf.patch
