@@ -1,3 +1,7 @@
+52c52
+< Listen 80
+---
+> Listen 8080
 150c150
 < #LoadModule cgid_module modules/mod_cgid.so
 ---
