@@ -6,10 +6,17 @@ This file is intended to be executed as root on the guest VM. Do not run it on y
 
 This script will:
 * Install sudo, build-essential, and the build dependencies for apache2
+* Install NGINX, MariaDB, and php-fpm
+* Add a default 404 page and abronsius.cpsc4270.local to NGINX
 * Create the user `abronsius` (if not existing) and add it to the sudoers list
 * Download, build, and install apache2 2.4.49 at `/home/abronsius/apache2`
 * Configure apache2 to serve files and enable cgi-bin
 * ... more coming later
+
+TODO:
+* Configure php-fpm
+* Configure a website2.cpsc4270.local running some PHP software (find a good name for this)
+* And more!
 
 # VM OS
 
