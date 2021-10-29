@@ -46,3 +46,7 @@ ln -s /etc/nginx/sites-available/abronsius.cpsc4270.local.conf /etc/nginx/sites-
 mkdir /var/www/abronsius.cpsc4270.local -p
 # TODO: Continue script to install and configure XenForo (or some other
 # software) and php-fpm automatically.
+
+cp alfred.cpsc4270.local.conf /etc/nginx/sites-available/alfred.cpsc4270.local.conf
+ln -s /etc/nginx/sites-available/alfred.cpsc4270.local.conf /etc/nginx/sites-enabled/alfred.cpsc4270.local.conf
+mkdir /var/www/alfred.cpsc4270.local -p
