@@ -2,20 +2,20 @@
 
 ## setup.sh
 
-This file is intended to be executed as root on the guest VM. Do not run it on your host OS; it will do bad things.
+This file is intended to be executed as root on the guest VM. Do not run it on your host OS; it will do bad things. You can (and perhaps should) run this file line by line since it does no error checking.
 
 This script will:
 * Install sudo, build-essential, and the build dependencies for apache2
 * Install NGINX, MariaDB, and php-fpm
-* Add a default 404 page and abronsius.cpsc4270.local to NGINX
+* Add a default 404 page, abronsius.cpsc4270.local, and alfred.cpsc4270.local to NGINX
 * Create the user `abronsius` (if not existing) and add it to the sudoers list
 * Download, build, and install apache2 2.4.49 at `/home/abronsius/apache2`
 * Configure apache2 to serve files and enable cgi-bin
 * ... more coming later
 
 TODO:
-* Configure php-fpm
-* Configure a website2.cpsc4270.local running some PHP software (find a good name for this)
+* Automate database account creation and permissions
+* Get XenForo installation and configuration automated
 * And more!
 
 # VM OS
@@ -46,3 +46,12 @@ Example output:
 abronsius
 Linux dbsec-vm-main 5.10.0-9-amd64 #1 SMP Debian 5.10.70-1 (2021-09-30) x86_64 GNU/Linux
 ```
+## Exploit Target 2: NGINX+php-fpm+UGC
+
+### Exploit 2: Misconfigured NGINX fastcgi_pass for PHP
+
+This exploit results in RCE on the php-fpm process (running as www-data as currently configured) which can then be leaveraged to connect directly to the locally running apache server running as the abronsius user and execute another RCE to obtain access to that user's files.
+
+The exploit allows executing arbitrary files as PHP because NGINX has been poorly configured to pass any URL ending in .php to php-fpm, and php-fpm has been configured to allow the execution of files not ending in .php via `security.limit_extensions`. This exploit would also work on earlier versions of PHP before this option was added.
+
+If a user uploads an image which gets saved as `avatar1000.png` for example, which happens to contain PHP code, it could be executed by browsing to a URL such as `http://alfred.cpsc4270.local/imgs/avatar1000.png/some.php`. This works because NGINX was not configured to verify that such a file exists, and PHP will happily read from left to right until it finds a file that exists and execute it, so the trailing /some.php isn't considered for this purpose.
