@@ -6,7 +6,7 @@ id abronsius || \
 # To consider: since we're going to be compromising this user, perhaps we could
 # crack this user's password from some hash (not /etc/shadow, but elsewhere) in
 # order to then gain sudo and thus root access?
-apt install sudo -y
+apt -y install sudo
 echo "abronsius    ALL=(ALL:ALL) ALL" > /etc/sudoers.d/abronsius
 
 # MariaDB is a drop-in replacement for MySQL. Any compatible database software
