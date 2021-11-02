@@ -1,7 +1,12 @@
+#!/bin/bash
+
+chmod +x *.sh
+
+export MWD=$(pwd)
+
 id abronsius || \
     useradd -m abronsius -s /bin/bash && \
-    echo "Password for abronsius: " && \
-    passwd abronsius
+echo -ne "knoblauch\nknoblauch\n" | passwd abronsius
 
 # To consider: since we're going to be compromising this user, perhaps we could
 # crack this user's password from some hash (not /etc/shadow, but elsewhere) in
@@ -44,10 +49,15 @@ ln -s /etc/nginx/sites-available/abronsius.cpsc4270.local.conf /etc/nginx/sites-
 # This directory isn't actually used for anything
 mkdir -p /var/www/abronsius.cpsc4270.local
 chown -R www-data:www-data /var/www/abronsius.cpsc4270.local
-# TODO: Continue script to install and configure XenForo (or some other
-# software) and php-fpm automatically.
 
 cp alfred.cpsc4270.local.conf /etc/nginx/sites-available/alfred.cpsc4270.local.conf
 ln -s /etc/nginx/sites-available/alfred.cpsc4270.local.conf /etc/nginx/sites-enabled/alfred.cpsc4270.local.conf
 mkdir -p /var/www/alfred.cpsc4270.local
 chown -R www-data:www-data /var/www/alfred.cpsc4270.local
+
+# Download, configure, and install XenForo
+apt -y install python3-pip
+pip install beautifulsoup4 lxml
+mkdir /var/www/files -p
+chown -R www-data:www-data /var/www/files
+su www-data -s /bin/bash -c ./setup_xenforo.sh
