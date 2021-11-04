@@ -17,3 +17,6 @@ make install
 # Make changes to apache config to enable mod_cgi and allow the web server to
 # serve files
 patch ~/apache2/conf/httpd.conf httpd.conf.patch
+
+cp cal.sh ~/apache2/cgi-bin/cal.sh
+chmod 755 ~/apache2/cgi-bin/cal.sh

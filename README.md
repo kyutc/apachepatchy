@@ -17,6 +17,8 @@ This script will:
 TODO:
 * Download, install, configure phpMyAdmin (or other software) for SQL injection
  * Find a way to tie-in SQL injection to springboard another attack
+* Crete an actual page for abronsius.cpsc4270.local.
+ * Currently cgi-bin hosts a cal.sh script
 
 CONSIDER:
 * Implement https://github.com/Balasys/dheater for DoS
