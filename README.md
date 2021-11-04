@@ -15,7 +15,11 @@ This script will:
 * ... more coming later
 
 TODO:
-* Other things?
+* Download, install, configure phpMyAdmin (or other software) for SQL injection
+ * Find a way to tie-in SQL injection to springboard another attack
+
+CONSIDER:
+* Implement https://github.com/Balasys/dheater for DoS
 
 # VM OS
 
