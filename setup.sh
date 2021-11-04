@@ -18,6 +18,13 @@ echo "abronsius    ALL=(ALL:ALL) ALL" > /etc/sudoers.d/abronsius
 # MariaDB is a drop-in replacement for MySQL. Any compatible database software
 # will work for our purposes
 apt -y install mariadb-server
+# Either one of these commands should be used to set the root user's password.
+mariadb-admin --user="root" password "knoblauch"
+# Debian might run mariadb-secure-installation by default, I don't recall.
+#mariadb-secure-installation
+# If a password has already been set, use this:
+# mariadb-admin --user="root" --password="original" password "knoblauch"
+
 
 # Install the necessary tools to build apache2 from source
 apt -y install build-essential
