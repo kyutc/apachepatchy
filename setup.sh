@@ -62,11 +62,11 @@ cp alfred.cpsc4270.local.conf /etc/nginx/sites-available/alfred.cpsc4270.local.c
 ln -s /etc/nginx/sites-available/alfred.cpsc4270.local.conf /etc/nginx/sites-enabled/alfred.cpsc4270.local.conf
 mkdir -p /var/www/alfred.cpsc4270.local
 chown -R www-data:www-data /var/www/alfred.cpsc4270.local
+systemctl reload nginx
 
 # Download, configure, and install XenForo
 apt -y install python3-pip
 pip install beautifulsoup4 lxml
 mkdir /var/www/files -p
 chown -R www-data:www-data /var/www/files
-systemctl reload nginx
 su www-data -s /bin/bash -c ./setup_xenforo.sh
