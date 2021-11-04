@@ -1,8 +1,9 @@
 #!/bin/bash
 
-chmod +x *.sh
-
+export PATH=$PATH:/usr/sbin
 export MWD=$(pwd)
+
+chmod +x *.sh
 
 id abronsius || \
     useradd -m abronsius -s /bin/bash && \
@@ -60,4 +61,5 @@ apt -y install python3-pip
 pip install beautifulsoup4 lxml
 mkdir /var/www/files -p
 chown -R www-data:www-data /var/www/files
+systemctl reload nginx
 su www-data -s /bin/bash -c ./setup_xenforo.sh
