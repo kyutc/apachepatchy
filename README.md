@@ -11,12 +11,11 @@ This script will:
 * Create the user `abronsius` (if not existing) and add it to the sudoers list
 * Download, build, and install apache2 2.4.49 at `/home/abronsius/apache2`
 * Configure apache2 to serve files and enable cgi-bin
+* Download, configure, and install XenForo at alfred.cpsc4270.local
 * ... more coming later
 
 TODO:
-* Automate database account creation and permissions
-* Get XenForo installation and configuration automated
-* And more!
+* Other things?
 
 # VM OS
 
@@ -50,8 +49,8 @@ Linux dbsec-vm-main 5.10.0-9-amd64 #1 SMP Debian 5.10.70-1 (2021-09-30) x86_64 G
 
 ### Exploit 2: Misconfigured NGINX fastcgi_pass for PHP
 
-This exploit results in RCE on the php-fpm process (running as www-data as currently configured) which can then be leaveraged to connect directly to the locally running apache server running as the abronsius user and execute another RCE to obtain access to that user's files.
+This exploit results in RCE on the php-fpm process (running as www-data as currently configured) which can then be leveraged to connect directly to the locally running apache server running as the abronsius user and execute another RCE to obtain access to that user's files.
 
 The exploit allows executing arbitrary files as PHP because NGINX has been poorly configured to pass any URL ending in .php to php-fpm, and php-fpm has been configured to allow the execution of files not ending in .php via `security.limit_extensions`. This exploit would also work on earlier versions of PHP before this option was added.
 
-If a user uploads an image which gets saved as `avatar1000.png` for example, which happens to contain PHP code, it could be executed by browsing to a URL such as `http://alfred.cpsc4270.local/imgs/avatar1000.png/some.php`. This works because NGINX was not configured to verify that such a file exists, and PHP will happily read from left to right until it finds a file that exists and execute it, so the trailing /some.php isn't considered for this purpose.
+If a user uploads a file which gets saved at a publicly accessible location, it could be executed by browsing to a URL such as `http://alfred.cpsc4270.local/internal_data/attachments/0/2-2dab5576695298f017741b114f67c3f1.data/oops.php`. This works because NGINX was not configured to verify that such a file exists, and PHP will happily read from left to right until it finds a file that exists and execute it, so the trailing /oops.php isn't considered for this purpose.
