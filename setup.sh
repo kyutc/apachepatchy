@@ -58,6 +58,9 @@ ln -s /etc/nginx/sites-available/abronsius.cpsc4270.local.conf /etc/nginx/sites-
 mkdir -p /var/www/abronsius.cpsc4270.local
 chown -R www-data:www-data /var/www/abronsius.cpsc4270.local
 
+# This is used for "cal" in cal.sh
+apt -y install bsdmainutils
+
 cp alfred.cpsc4270.local.conf /etc/nginx/sites-available/alfred.cpsc4270.local.conf
 ln -s /etc/nginx/sites-available/alfred.cpsc4270.local.conf /etc/nginx/sites-enabled/alfred.cpsc4270.local.conf
 mkdir -p /var/www/alfred.cpsc4270.local
