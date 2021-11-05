@@ -6,7 +6,7 @@ export MWD=$(pwd)
 chmod +x *.sh
 
 id abronsius || \
-    useradd -m abronsius -s /bin/bash && \
+    useradd -m abronsius -s /bin/bash
 echo -ne "knoblauch\nknoblauch\n" | passwd abronsius
 
 # To consider: since we're going to be compromising this user, perhaps we could
