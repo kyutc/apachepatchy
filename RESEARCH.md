@@ -20,6 +20,16 @@ Implemented attacks and information regarding them:
     * Use the latest version of php-fpm which by default will refuse to execute non-.php files.
     * Configure NGINX to only execute a static list of files
 
+* vBulletin imported users
+  * Description: Users which are imported from vBulletin will retain the weak password hash which vBulletin uses until the next time the user logs in, at which point the password hash will be updated to XenForo's far more secure format. A weak password hash will be far easier to crack, especially on a low budget.
+  * Mitigations:
+    * Require users to login to their accounts, especially staff, after an import
+    * Educate users on password complexity and reuse
+  * Solutions:
+    * Do not import old user accounts; create these manually. (Too cumbersome to implement)
+    * Encapsulate the old hash with a new, stronger hash. (This is not standard nor recommended by security professionals)
+    * Assign each imported user a new temporary one-time-use password using the XenForo password hashing method, and require setting a new password upon login
+
 Things to consider:
 * https://imagetragick.com/
   * Specially crafted images processed by ImageMagick can result in RCE

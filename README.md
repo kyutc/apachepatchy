@@ -12,6 +12,7 @@ This script will:
 * Download, build, and install apache2 2.4.49 at `/home/abronsius/apache2`
 * Configure apache2 to serve files and enable cgi-bin
 * Download, configure, and install XenForo at alfred.cpsc4270.local
+* Create a XenForo user named "Abronsius" with a vBulletin-imported password
 * ... more coming later
 
 TODO:
@@ -63,3 +64,9 @@ This exploit results in RCE on the php-fpm process (running as www-data as curre
 The exploit allows executing arbitrary files as PHP because NGINX has been poorly configured to pass any URL ending in .php to php-fpm, and php-fpm has been configured to allow the execution of files not ending in .php via `security.limit_extensions`. This exploit would also work on earlier versions of PHP before this option was added.
 
 If a user uploads a file which gets saved at a publicly accessible location, it could be executed by browsing to a URL such as `http://alfred.cpsc4270.local/internal_data/attachments/0/2-2dab5576695298f017741b114f67c3f1.data/oops.php`. This works because NGINX was not configured to verify that such a file exists, and PHP will happily read from left to right until it finds a file that exists and execute it, so the trailing /oops.php isn't considered for this purpose.
+
+## Exploit Target 3: vBulletin imported users
+
+### Exploit 3: Cracking a weak password with a weak password hash
+
+This exploit takes advantage of the fact that a user account which has not been logged into since being imported from vBulletin to XenForo will still have a vBulletin hash of md5(md5(password).salt) which is considerably weak. Further assisting the attack, the password is weak as it is all lowercase and a single word.
