@@ -14,3 +14,5 @@ mariadb -uroot -pknoblauch < "$MWD"/init_database.sql
 
 # Bypass browser requirement to install automatically
 python3 setup_xenforo.py
+
+./setup_xenforo_user.sh
