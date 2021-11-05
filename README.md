@@ -16,9 +16,9 @@ This script will:
 
 TODO:
 * Download, install, configure phpMyAdmin (or other software) for SQL injection
- * Find a way to tie-in SQL injection to springboard another attack
+  * Find a way to tie-in SQL injection to springboard another attack
 * Crete an actual page for abronsius.cpsc4270.local.
- * Currently cgi-bin hosts a cal.sh script
+  * Currently cgi-bin hosts a cal.sh script
 
 CONSIDER:
 * Implement https://github.com/Balasys/dheater for DoS
@@ -26,6 +26,9 @@ CONSIDER:
 # VM OS
 
 The OS is Debian 11.1 Bullseye but any Debian-based OS should also work. I don't recommend deviating from this choice in case there are compatibility issues, and any non-Debian OS will require installing and configuring everything manually. Download via [Torrent](https://cdimage.debian.org/debian-cd/current/amd64/bt-cd/debian-11.1.0-amd64-netinst.iso.torrent) or directly via [ISO](https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-11.1.0-amd64-netinst.iso). The sha256sum of the ISO is `8488abc1361590ee7a3c9b00ec059b29dfb1da40f8ba4adf293c7a30fa943eb2` to double check that you've obtained the correct file.
+
+I do not recommend installing any desktop environment (GUI) because it is not necessary and will waste resources. You must install SSH server and connect to the VM with an SSH client. Linux and OSX come standard with an SSH client. Windows might have its own native client, but [PuTTY](https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.76-installer.msi) should work if not.
+
 
 # VM Configuration
 
