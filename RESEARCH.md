@@ -30,6 +30,27 @@ Implemented attacks and information regarding them:
     * Encapsulate the old hash with a new, stronger hash. (This is not standard nor recommended by security professionals)
     * Assign each imported user a new temporary one-time-use password using the XenForo password hashing method, and require setting a new password upon login
 
+  * Horizontal and Vertical Privilege Escalation
+    * Description: Accessing another non-root user with sudo access allows transforming horizontal privilege escalation into vertical privilege escalation if their password becomes known. This is possible because the user abronsius was given far more access than it should have, in addition to the user hosting a vulnerable web server.
+    * Mitigations:
+      * Use setuid to run specified commands as other users/root. (Not recommended)
+      * Limit sudo access to only the actions the specific user requires.
+    * Solutions:
+      * Do not install or use sudo.
+      * Do not give sudo access to users running services such as HTTP.
+      * Limit user accounts to one task; a user should not be running a web server while also being a personal access account.
+
+  * Unencrypted Sensitive Data At Rest
+    * Description: Database login information is contained in a file which could be read and expose the plaintext password.
+    * Mitigations:
+      * Set access permissions on `src/config.php` to 0400 to ensure only the www-data user has read access to it.
+      * Run php-fpm as a separate user from NGINX so that NGINX cannot have read permission of the .php files.
+      * Use an environment variable to pass the password to PHP. An attacker would require RCE as the php-fpm process to read it.
+      * Encrypt the file. Cache the unencrypted file in memory only.
+    * Solutions:
+      * Solutions require code modifications to create alternate means of authentication and are therefore not practical in most cases.
+
+
 ### Technical details for vBulletin imported users
 Before the user logs into a newly-imported account, the database will look like this:
 ```

@@ -70,3 +70,14 @@ If a user uploads a file which gets saved at a publicly accessible location, it 
 ### Exploit 3: Cracking a weak password with a weak password hash
 
 This exploit takes advantage of the fact that a user account which has not been logged into since being imported from vBulletin to XenForo will still have a vBulletin hash of md5(md5(password).salt) which is considerably weak. Further assisting the attack, the password is weak as it is all lowercase and a single word.
+
+
+## Intermediary Exploits
+
+### Exploits 4, 5: Horizontal and Vertical Privilege Escalation
+
+Performing RCE against php-fpm allows obtaining access to everything that process has access to, namely anything the www-data user has access to. From here, it can be discovered that an Apache server is running on 127.0.0.1:8080 and can be exploited via CVE-2021-41773 for RCE. This results in horizontal privilege escalation to the abronsius user. Combined with the password which was cracked, and the fact that abronsius was given sudo access, this allows obtaining access to the root user.
+
+### Exploit 6: Unencrypted Sensitive Data At Rest
+
+The file located at `src/config.php` within XenForo contains the database access information, including the password in plaintext. If this file can ever be read by an attacker, they can obtain everything they would need to access the database. Preventing database access, however, is the fact that the database software is only configured to listen on localhost, and additionally that all of the configured users are only allowed to authenticate at localhost as well. Therefore, an attacker would have to obtain RCE of some sort in order to access the database, or make use of a publicly accessible phpMyAdmin installation.
