@@ -110,6 +110,8 @@ Started: Fri Nov  5 14:27:17 2021
 Stopped: Fri Nov  5 14:29:27 2021
 ```
 
+It would take over 300 years to exhaust every lowercase character in a 9 character password if attempting to crack using a GTX 1080 and stored using XenForo's password storage method. This kind of cracking would require more advanced strategies than brute force and a higher budget to attempt. It would take less than an hour to exhaust the entire keyspace if using vBulletin's password storage method. An attacker with a budget could crack the password in seconds.
+
 Things to consider:
 * https://imagetragick.com/
   * Specially crafted images processed by ImageMagick can result in RCE
