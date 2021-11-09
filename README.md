@@ -13,16 +13,7 @@ This script will:
 * Configure apache2 to serve files and enable cgi-bin
 * Download, configure, and install XenForo at alfred.cpsc4270.local
 * Create a XenForo user named "Abronsius" with a vBulletin-imported password
-* ... more coming later
-
-TODO:
-* Download, install, configure phpMyAdmin (or other software) for SQL injection
-  * Find a way to tie-in SQL injection to springboard another attack
-* Crete an actual page for abronsius.cpsc4270.local.
-  * Currently cgi-bin hosts a cal.sh script
-
-CONSIDER:
-* Implement https://github.com/Balasys/dheater for DoS
+* ... more coming later?
 
 # VM OS
 
