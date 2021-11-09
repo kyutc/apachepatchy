@@ -35,6 +35,7 @@ Implemented attacks and information regarding them:
     * Mitigations:
       * Use setuid to run specified commands as other users/root. (Not recommended)
       * Limit sudo access to only the actions the specific user requires.
+      * Run unrelated services on separate machines.
     * Solutions:
       * Do not install or use sudo.
       * Do not give sudo access to users running services such as HTTP.
