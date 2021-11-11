@@ -1,0 +1,7 @@
+12a13,16
+> 	location /internal_data {
+> 		internal;
+> 	}
+>
+16a21
+> 		try_files $uri =404;

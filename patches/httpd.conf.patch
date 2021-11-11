@@ -1,0 +1,4 @@
+150c150
+< LoadModule cgid_module modules/mod_cgid.so
+---
+> #LoadModule cgid_module modules/mod_cgid.so
